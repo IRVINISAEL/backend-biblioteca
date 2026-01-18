@@ -51,17 +51,17 @@ backend/
 
 **Instalación**
 1️⃣ Clona el repositorio
-`
+```
 git clone https://github.com/IRVINISAEL/backend-biblioteca.git
-`
+```
 2️⃣ Entra al proyecto
-`
+```
 cd backend-biblioteca
-`
+```
 3️⃣ Instala dependencias
-`
+```
 npm install
-`
+```
 **Configurar .env**
 
 * Crea un archivo .env en la raíz:
@@ -74,14 +74,14 @@ SUPABASE_SERVICE_KEY=eyJhbGciOiJIUzI...
 # IMPORTANTE: La Service Key debe ser la anon key o service key generada por Supabase.
 
 ▶️ Iniciar el servidor
-`
+```
 npm start
-`
+```
 
 * El servidor iniciará en:
-`
+```
 http://localhost:3000
-`
+```
 * Endpoints (Usuarios)
 **GET /api/usuarios**
 
@@ -134,9 +134,9 @@ successResponse(res, data)
 errorResponse(res, "Mensaje de error", 400)
 ```
 ## 🗄 Conexión a Supabase
-`
+```
 src/config/supabase.js
-`
+```
 
 ## Este archivo genera un cliente oficial de Supabase listo para consultas.
 
@@ -151,6 +151,6 @@ src/config/supabase.js
 ```
 
 **Ejecutar modo desarrollo:**
-`
+```
 npm run dev
-`
+```
