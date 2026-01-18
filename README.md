@@ -5,16 +5,16 @@
 
 * 🚀 Características principales
 
-** CRUD de usuarios (crear, listar, obtener por id, actualizar, eliminar).
+**CRUD de usuarios (crear, listar, obtener por id, actualizar, eliminar).**
 
-** Arquitectura profesional con separación de capas:
+**Arquitectura profesional con separación de capas:**
 `routes → controllers → services → config`
 
 * Validación de datos con Zod (opcional).
 
-** Manejo de errores centralizado.
+**Manejo de errores centralizado.**
 
-* Respuestas estandarizadas (successResponse, errorResponse).
+* Respuestas estandarizadas (successResponse, errorResponse). *
 
 # Logger para depuración.
 
