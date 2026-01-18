@@ -1,24 +1,24 @@
-#📘 README — Backend Biblioteca
-##📚 Backend Biblioteca
+# 📘 README — Backend Biblioteca
+## 📚 Backend Biblioteca
 
-#API REST creada con Node.js + Express y Supabase como base de datos, diseñada para gestionar usuarios, libros y préstamos dentro de un sistema de biblioteca.
+# API REST creada con Node.js + Express y Supabase como base de datos, diseñada para gestionar usuarios, libros y préstamos dentro de un sistema de biblioteca.
 
-*🚀 Características principales
+* 🚀 Características principales
 
-**CRUD de usuarios (crear, listar, obtener por id, actualizar, eliminar).
+** CRUD de usuarios (crear, listar, obtener por id, actualizar, eliminar).
 
-**Arquitectura profesional con separación de capas:
+** Arquitectura profesional con separación de capas:
 `routes → controllers → services → config`
 
-*Validación de datos con Zod (opcional).
+* Validación de datos con Zod (opcional).
 
-**Manejo de errores centralizado.
+** Manejo de errores centralizado.
 
-*Respuestas estandarizadas (successResponse, errorResponse).
+* Respuestas estandarizadas (successResponse, errorResponse).
 
-#Logger para depuración.
+# Logger para depuración.
 
-##Conexión directa a Supabase con SDK oficial.
+## Conexión directa a Supabase con SDK oficial.
 ```
 📁 Estructura del proyecto
 backend/
