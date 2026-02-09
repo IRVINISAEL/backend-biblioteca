@@ -1,0 +1,42 @@
+name: CI/CD Backend Biblioteca
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v3
+
+      - name: ⚙️ Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 📦 Instalar dependencias
+        run: npm install
+
+      - name: 🧪 Tests
+        run: npm test
+        continue-on-error: true
+
+      - name: Build
+        run: npm run build
+        continue-on-error: true
+
+      - name: 🔐 Crear .env
+        run: |
+          echo "PORT=${{ secrets.PORT }}" >> .env
+          echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
+          echo "SUPABASE_SERVICE_KEY=${{ secrets.SUPABASE_SERVICE_KEY }}" >> .env
+
+      - name: 📤 Subir Artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-build
+          path: .

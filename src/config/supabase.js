@@ -1,7 +1,5 @@
-import { createClient } from "@supabase/supabase-js";
-import dotenv from "dotenv";
-
-dotenv.config();
+import 'dotenv/config';   // 👈 Cargar variables ANTES de Supabase
+import { createClient } from '@supabase/supabase-js';
 
 export const supabase = createClient(
   process.env.SUPABASE_URL,
