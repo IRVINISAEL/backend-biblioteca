@@ -3,7 +3,7 @@ name: CI/CD Backend Biblioteca
 on:
   push:
     branches:
-      - main   # Se ejecuta cuando subes algo al main
+      - main
   pull_request:
 
 jobs:
@@ -31,7 +31,9 @@ jobs:
         continue-on-error: true
 
       - name: 🔐 Configurar variables Ambientales (ENV)
+        shell: bash
         run: |
+          touch .env
           echo "PORT=${{ secrets.PORT }}" >> .env
           echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
           echo "SUPABASE_SERVICE_KEY=${{ secrets.SUPABASE_SERVICE_KEY }}" >> .env
@@ -39,9 +41,11 @@ jobs:
       - name: 📤 Ver .env generado (debug)
         run: cat .env
 
+      - name: ▶️ Iniciar servidor para verificar que funciona
+        run: npm start
+
       - name: 📦 Subir artefacto
         uses: actions/upload-artifact@v4
         with:
           name: backend-build
           path: .
-
