@@ -1,0 +1,46 @@
+name: CI/CD Backend Biblioteca
+
+on:
+  push:
+    branches:
+      - main   # Se ejecuta cuando subes algo al main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout del repositorio
+        uses: actions/checkout@v3
+
+      - name: 🟢 Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: 📦 Instalar dependencias
+        run: npm install
+
+      - name: 🧪 Ejecutar pruebas (si tienes)
+        run: npm test
+        continue-on-error: true
+
+      - name: 🚀 Build
+        run: npm run build
+        continue-on-error: true
+
+      - name: 🔐 Configurar variables Ambientales (ENV)
+        run: |
+          echo "PORT=${{ secrets.PORT }}" >> .env
+          echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
+          echo "SUPABASE_SERVICE_KEY=${{ secrets.SUPABASE_SERVICE_KEY }}" >> .env
+
+      - name: 📤 Ver .env generado (debug)
+        run: cat .env
+
+      - name: 📦 Subir artefacto
+        uses: actions/upload-artifact@v3
+        with:
+          name: backend-build
+          path: .
