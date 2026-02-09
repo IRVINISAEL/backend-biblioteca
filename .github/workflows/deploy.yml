@@ -17,7 +17,7 @@ jobs:
       - name: 🟢 Configurar Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
 
       - name: 📦 Instalar dependencias
         run: npm install
@@ -33,16 +33,12 @@ jobs:
       - name: 🔐 Configurar variables Ambientales (ENV)
         shell: bash
         run: |
-          touch .env
           echo "PORT=${{ secrets.PORT }}" >> .env
           echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
           echo "SUPABASE_SERVICE_KEY=${{ secrets.SUPABASE_SERVICE_KEY }}" >> .env
 
       - name: 📤 Ver .env generado (debug)
         run: cat .env
-
-      - name: ▶️ Iniciar servidor para verificar que funciona
-        run: npm start
 
       - name: 📦 Subir artefacto
         uses: actions/upload-artifact@v4
