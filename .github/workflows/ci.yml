@@ -7,49 +7,36 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-test:
+  backend:
     runs-on: ubuntu-latest
-    
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
-      - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+
       - name: Install dependencies
-        run: npm ci
-      
-      - name: Run linter
-        run: npm run lint --if-present
-        continue-on-error: true
-      
-      - name: Run tests
-        run: npm test --if-present || echo "No tests configured yet"
-        continue-on-error: true
-      
-      - name: Check syntax
-        run: node -c src/index.js || echo "Checking main entry point"
-        continue-on-error: true
-      
-      - name: Check if server starts
+        run: bun install
+
+      - name: Create .env
         run: |
-          timeout 10s npm start &
+          echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
+          echo "SUPABASE_KEY=${{ secrets.SUPABASE_KEY }}" >> .env
+
+      - name: Run tests
+        run: bun test || echo "No test files yet"
+
+      - name: Validate server starts
+        run: |
+          bun run dev &
           pid=$!
-          sleep 3
+          sleep 4
           if ps -p $pid > /dev/null; then
             echo "✅ Server started successfully"
             kill $pid
           else
-            echo "⚠️ Server check skipped or needs configuration"
+            echo "❌ Server failed to start"
+            exit 1
           fi
-        env:
-          NODE_ENV: test
-        continue-on-error: true
