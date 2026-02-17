@@ -1,25 +1,18 @@
-export const successResponse = (
-  res,
-  data,
-  status = 200,
-  message = "Operacion exitosa",
-) => {
-  res.status(status).json({
+export const successResponse = (data, message = "Operacion exitosa") => {
+  return {
     success: true,
     message,
     data,
-  });
+  };
 };
 
 export const errorResponse = (
-  res,
   message = "Error en la peticion",
-  status = 500,
   error = null,
 ) => {
-  res.status(status).json({
+  return {
     success: false,
     message,
-    error: error?.message || null,
-  });
+    error: error?.message || error || null,
+  };
 };

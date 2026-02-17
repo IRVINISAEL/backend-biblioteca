@@ -6,10 +6,12 @@ export class ActividadController {
     try {
       const limit = req.query.limit ? parseInt(req.query.limit) : 50;
       const actividad = await ActividadService.getRecent(limit);
-      successResponse(res, actividad, 200, "Actividad obtenida exitosamente");
+      res
+        .status(200)
+        .json(successResponse(actividad, "Actividad obtenida exitosamente"));
     } catch (error) {
       console.error("Error en getRecent:", error);
-      errorResponse(res, "Error al obtener actividad", 500);
+      res.status(500).json(errorResponse("Error al obtener actividad", error));
     }
   }
 }
