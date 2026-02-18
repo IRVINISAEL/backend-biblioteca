@@ -5,10 +5,12 @@ export class LibroController {
   static async getAll(req, res) {
     try {
       const libros = await LibroService.getAll();
-      successResponse(res, libros, 200, "Libros obtenidos exitosamente");
+      res
+        .status(200)
+        .json(successResponse(libros, "Libros obtenidos exitosamente"));
     } catch (error) {
       console.error("Error en getAll:", error);
-      errorResponse(res, "Error al obtener libros", 500);
+      res.status(500).json(errorResponse("Error al obtener libros", error));
     }
   }
 }
