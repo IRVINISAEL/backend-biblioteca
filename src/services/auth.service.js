@@ -14,8 +14,6 @@ export class AuthService {
 
     if (authError) throw new Error(authError.message);
     if (!authData.user) throw new Error('Error al autenticar');
-    
-    console.log('✅ Usuario autenticado:', authData.user.id); // LOG
 
     // 2. Obtener información adicional del usuario desde nuestra tabla
     const { data: userData, error: userError } = await supabase
@@ -24,7 +22,6 @@ export class AuthService {
       .eq('id', authData.user.id)
       .single();
     
-    console.log('🔍 Buscando usuario con ID:', authData.user.id); // LOG
     console.log('📊 Resultado de consulta:', userData); // LOG
     console.log('❌ Error (si hay):', userError); // LOG
 

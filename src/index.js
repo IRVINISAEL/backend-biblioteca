@@ -15,10 +15,12 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({
-  origin: process.env.FRONTEND_URL,
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  }),
+);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -30,27 +32,27 @@ app.use("/api/actividades", actividadRoute);
 app.use("/api/auth", authRoutes);
 
 // Ruta de prueba
-app.get('/api/health', (req, res) => {
+app.get("/api/health", (req, res) => {
   res.json({
     success: true,
-    message: 'API funcionando correctamente',
-    timestamp: new Date().toISOString()
+    message: "API funcionando correctamente",
+    timestamp: new Date().toISOString(),
   });
+});
+
+app.get("/", (req, res) => {
+  res.json({ message: "API Inventario UTT" });
 });
 
 // Manejo de rutas no encontradas
 app.use((req, res) => {
   res.status(404).json({
     success: false,
-    message: 'Ruta no encontrada'
+    message: "Ruta no encontrada",
   });
 });
 
-app.get('/', (req, res) => {
-  res.json({ message: 'API Inventario UTT' });
-});
-
 app.listen(PORT, () => {
-  logger.info(`✅ Servidor corriendo en http://localhost:${PORT}`)
+  logger.info(`✅ Servidor corriendo en http://localhost:${PORT}`);
   logger.info(`🔗 CORS habilitado para: ${process.env.FRONTEND_URL}`);
 });
