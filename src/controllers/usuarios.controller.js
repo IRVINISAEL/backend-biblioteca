@@ -13,7 +13,11 @@ export const getUsuarios = async (req, res) => {
 
 export const crearUsuario = async (req, res) => {
   try {
-    const usuario = await UsuariosService.crearUsuario(req.body);
+    const { email, ...rest } = req.body;
+    if (!email) {
+      return res.status(400).json({ error: "El campo 'email' es obligatorio" });
+    }
+    const usuario = await UsuariosService.crearUsuario({ email, ...rest });
     res.json(usuario);
   } catch (error) {
     logger.error(error);
