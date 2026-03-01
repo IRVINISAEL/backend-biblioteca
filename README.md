@@ -106,10 +106,12 @@ Body (ejemplo):
 ```
 {
   "nombre": "Irvin",
-  "correo": "example@gmail.com",
+  "email": "example@gmail.com",
   "telefono": "5551234567"
 }
 ```
+
+> El backend espera que exista el campo `email`; se validará y se almacenará en la tabla `usuarios`.
 **PUT /api/usuarios/:id**
 
 * Actualiza un usuario.
